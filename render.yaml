@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: rdc-public-policies
+    runtime: static
+    buildCommand: 'true'
+    staticPublishPath: public
+    headers:
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'none'"
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: no-referrer
+    routes:
+      - type: rewrite
+        source: /rules
+        destination: /rules.html
+      - type: rewrite
+        source: /terms
+        destination: /terms.html
+      - type: rewrite
+        source: /privacy
+        destination: /privacy.html
